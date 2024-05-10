@@ -1,0 +1,71 @@
+[gd_scene load_steps=7 format=3 uid="uid://b8wgtjmqw34o0"]
+
+[ext_resource type="Script" path="res://Test.gd" id="1_uj5ci"]
+[ext_resource type="PackedScene" uid="uid://cj6fvxnysokty" path="res://Scenes/new_hud_2.tscn" id="2_vqvnl"]
+[ext_resource type="PackedScene" uid="uid://b26wmef2nh18c" path="res://Scenes/new_hud.tscn" id="3_q52a6"]
+[ext_resource type="PackedScene" uid="uid://c7h6ofo5ufbln" path="res://Scenes/player_1.tscn" id="4_yf7b5"]
+[ext_resource type="PackedScene" uid="uid://cjio1umh4i7y0" path="res://Scenes/player_2.tscn" id="5_dy1ed"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2uko4"]
+size = Vector2(1358, 122)
+
+[node name="Main World" type="Node2D"]
+script = ExtResource("1_uj5ci")
+
+[node name="new hud" parent="." instance=ExtResource("3_q52a6")]
+offset_left = 15.0
+offset_right = 15.0
+metadata/_edit_use_anchors_ = true
+
+[node name="new_hud_2" parent="." instance=ExtResource("2_vqvnl")]
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 1155.0
+offset_top = -1.0
+offset_right = 1155.0
+offset_bottom = -1.0
+grow_horizontal = 1
+grow_vertical = 1
+
+[node name="Player_1" parent="." instance=ExtResource("4_yf7b5")]
+position = Vector2(338, 500)
+
+[node name="player_2" parent="." instance=ExtResource("5_dy1ed")]
+position = Vector2(823, 498)
+
+[node name="Positions" type="Node2D" parent="."]
+
+[node name="(0,0)" type="Marker2D" parent="Positions"]
+position = Vector2(350, 0)
+
+[node name="(1,0)" type="Marker2D" parent="Positions"]
+position = Vector2(500, 0)
+
+[node name="(2,0)" type="Marker2D" parent="Positions"]
+position = Vector2(650, 0)
+
+[node name="(3,0)" type="Marker2D" parent="Positions"]
+position = Vector2(800, 0)
+
+[node name="(0,1)" type="Marker2D" parent="Positions"]
+position = Vector2(350, -125)
+
+[node name="(1,1)" type="Marker2D" parent="Positions"]
+position = Vector2(500, -125)
+
+[node name="(2,1)" type="Marker2D" parent="Positions"]
+position = Vector2(650, -125)
+
+[node name="(3,1)" type="Marker2D" parent="Positions"]
+position = Vector2(800, -125)
+
+[node name="Enemy_despawn" type="Area2D" parent="."]
+position = Vector2(580, 729)
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy_despawn"]
+shape = SubResource("RectangleShape2D_2uko4")
+
+[connection signal="area_entered" from="Enemy_despawn" to="." method="_on_enemy_despawn_area_entered"]
+[connection signal="area_shape_entered" from="Enemy_despawn" to="." method="_on_enemy_despawn_area_shape_entered"]
