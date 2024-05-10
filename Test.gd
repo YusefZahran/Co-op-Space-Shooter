@@ -17,7 +17,15 @@ var health = 0:
 	set(value):
 		health = value
 		hud.health = health
-
+		
+func _ready():
+	var enemy = Enemy.instantiate()
+	enemy.position = Vector2(1000,1000)
+	enemy.speed = 0
+	get_parent().add_child(enemy)
+	enemy.dead.connect(decrease_enemy)
+	#Enemy.dead.connect(decrease_enemy)
+	pass
 func _process(delta):
 	if isenemies == false:
 		spawn_enemies()
@@ -36,6 +44,7 @@ func check_enemies():
 		isenemies = true
 	else:
 		isenemies = false
+		print("isenemies is not false")
 
 
 #func _on_enemy_despawn_area_entered(area):
@@ -43,5 +52,11 @@ func check_enemies():
 
 
 func _on_enemy_despawn_area_shape_entered(area_rid, area, area_shape_index, local_shape_index):
-	area.queue_free()
+	if area.is_in_group("Enemy"):
+		area.kill()
+		decrease_enemy()
 	
+
+func decrease_enemy():
+	num_of_enemies -=1
+	print(num_of_enemies)

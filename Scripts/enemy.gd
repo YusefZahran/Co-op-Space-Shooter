@@ -1,6 +1,7 @@
 extends Area2D
 var Bullet = preload("res://Scenes/bullet.tscn")
-
+signal dead
+var speed = 2
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
@@ -8,13 +9,17 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	position.y += 2
+	position.y += speed
 
 func kill():
+	dead.emit()
 	queue_free()
 
+
 func despawn():
+	dead.emit()
 	queue_free()
+
 
 func _on_timer_timeout():
 	shoot()
