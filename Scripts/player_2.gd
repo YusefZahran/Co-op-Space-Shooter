@@ -2,7 +2,8 @@ extends CharacterBody2D
 @onready var Bullet = preload("res://Scenes/bullet.tscn")
 var SPEED = 400
 var score = 0
-var hp = 3
+var health = 3
+signal change_health(health)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -18,7 +19,6 @@ func _process(delta):
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 
 	if Input.is_action_just_pressed("P2_shoot"):
-		print("space")
 		var bullet = Bullet.instantiate()
 		bullet.position = Vector2(position.x, position.y -100)
 		bullet.parent = 2
@@ -26,3 +26,13 @@ func _process(delta):
 
 	move_and_slide()
 
+func hurt(damage):
+	health -= damage
+	print("P2 health is :" + str(health))
+	emit_signal("change_health", health)
+	if health <= 0:
+		die()
+	emit_signal("change_health", health)
+	
+func die():
+	queue_free()

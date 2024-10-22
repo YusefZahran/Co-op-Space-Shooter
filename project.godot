@@ -11,9 +11,14 @@ config_version=5
 [application]
 
 config/name="Co-op Space Shooter"
-run/main_scene="res://Scenes/Main_World.tscn"
+run/main_scene="res://Scenes/start_menu.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
+
+[display]
+
+window/size/viewport_width=1400
+window/size/viewport_height=700
 
 [input]
 

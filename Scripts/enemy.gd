@@ -1,7 +1,7 @@
 extends Area2D
 var Bullet = preload("res://Scenes/bullet.tscn")
 signal dead
-var speed = 2
+var speed = 4
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
@@ -11,21 +11,22 @@ func _ready():
 func _process(delta):
 	position.y += speed
 
-func kill():
+func kill(): # this works
 	dead.emit()
+	#print("kill did")
 	queue_free()
 
 
-func despawn():
-	dead.emit()
-	queue_free()
+#func despawn():
+	#dead.emit()
+	#print("despawn did")
+	#queue_free()
 
 
 func _on_timer_timeout():
 	shoot()
 	
 func shoot():
-	print("heree")
 	var bullet = Bullet.instantiate()
 	bullet.isdown = true
 	bullet.position = Vector2(position.x, position.y +100)
@@ -33,3 +34,8 @@ func shoot():
 	bullet.rotation_degrees += 180
 	bullet.parent = 3
 	get_parent().add_child(bullet)
+
+
+func _on_body_entered(body):
+	if (body.is_in_group("Player")):
+		body.hurt(1)

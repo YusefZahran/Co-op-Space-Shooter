@@ -1,10 +1,13 @@
-[gd_scene load_steps=7 format=3 uid="uid://b8wgtjmqw34o0"]
+[gd_scene load_steps=10 format=3 uid="uid://b8wgtjmqw34o0"]
 
 [ext_resource type="Script" path="res://Test.gd" id="1_uj5ci"]
 [ext_resource type="PackedScene" uid="uid://cj6fvxnysokty" path="res://Scenes/new_hud_2.tscn" id="2_vqvnl"]
 [ext_resource type="PackedScene" uid="uid://b26wmef2nh18c" path="res://Scenes/new_hud.tscn" id="3_q52a6"]
 [ext_resource type="PackedScene" uid="uid://c7h6ofo5ufbln" path="res://Scenes/player_1.tscn" id="4_yf7b5"]
 [ext_resource type="PackedScene" uid="uid://cjio1umh4i7y0" path="res://Scenes/player_2.tscn" id="5_dy1ed"]
+[ext_resource type="Texture2D" uid="uid://drjieru8vtcpb" path="res://assets/black_bg.png" id="6_dhmch"]
+[ext_resource type="Script" path="res://Scenes/BG.gd" id="6_kgyja"]
+[ext_resource type="Texture2D" uid="uid://blldxbmcfepxi" path="res://assets/background_1.png" id="6_xykrv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2uko4"]
 size = Vector2(1358, 122)
@@ -13,59 +16,68 @@ size = Vector2(1358, 122)
 script = ExtResource("1_uj5ci")
 
 [node name="new hud" parent="." instance=ExtResource("3_q52a6")]
-offset_left = 15.0
-offset_right = 15.0
 metadata/_edit_use_anchors_ = true
 
 [node name="new_hud_2" parent="." instance=ExtResource("2_vqvnl")]
-anchors_preset = 0
-anchor_right = 0.0
-anchor_bottom = 0.0
-offset_left = 1155.0
-offset_top = -1.0
-offset_right = 1155.0
-offset_bottom = -1.0
-grow_horizontal = 1
-grow_vertical = 1
+offset_right = 1400.0
+offset_bottom = 700.0
 
 [node name="Player_1" parent="." instance=ExtResource("4_yf7b5")]
-position = Vector2(338, 500)
+position = Vector2(896, 500)
 
 [node name="player_2" parent="." instance=ExtResource("5_dy1ed")]
-position = Vector2(823, 498)
+position = Vector2(496, 500)
 
 [node name="Positions" type="Node2D" parent="."]
 
 [node name="(0,0)" type="Marker2D" parent="Positions"]
-position = Vector2(350, 0)
+position = Vector2(491, 0)
 
 [node name="(1,0)" type="Marker2D" parent="Positions"]
-position = Vector2(500, 0)
+position = Vector2(641, 0)
 
 [node name="(2,0)" type="Marker2D" parent="Positions"]
-position = Vector2(650, 0)
+position = Vector2(791, 0)
 
 [node name="(3,0)" type="Marker2D" parent="Positions"]
-position = Vector2(800, 0)
+position = Vector2(941, 0)
 
 [node name="(0,1)" type="Marker2D" parent="Positions"]
-position = Vector2(350, -125)
+position = Vector2(491, -125)
 
 [node name="(1,1)" type="Marker2D" parent="Positions"]
-position = Vector2(500, -125)
+position = Vector2(641, -125)
 
 [node name="(2,1)" type="Marker2D" parent="Positions"]
-position = Vector2(650, -125)
+position = Vector2(791, -125)
 
 [node name="(3,1)" type="Marker2D" parent="Positions"]
-position = Vector2(800, -125)
+position = Vector2(941, -125)
 
 [node name="Enemy_despawn" type="Area2D" parent="."]
-position = Vector2(580, 729)
+position = Vector2(706, 729)
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy_despawn"]
 shape = SubResource("RectangleShape2D_2uko4")
 
+[node name="BG" type="ParallaxBackground" parent="."]
+script = ExtResource("6_kgyja")
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="BG"]
+motion_scale = Vector2(2, 2)
+motion_mirroring = Vector2(0, 640)
+
+[node name="Sprite2D2" type="Sprite2D" parent="BG/ParallaxLayer"]
+texture = ExtResource("6_dhmch")
+centered = false
+
+[node name="Sprite2D" type="Sprite2D" parent="BG/ParallaxLayer"]
+scale = Vector2(5.5, 5.5)
+texture = ExtResource("6_xykrv")
+centered = false
+
+[connection signal="change_health" from="Player_1" to="." method="_on_player_1_change_health"]
+[connection signal="change_health" from="player_2" to="." method="_on_player_2_change_health"]
 [connection signal="area_entered" from="Enemy_despawn" to="." method="_on_enemy_despawn_area_entered"]
 [connection signal="area_shape_entered" from="Enemy_despawn" to="." method="_on_enemy_despawn_area_shape_entered"]

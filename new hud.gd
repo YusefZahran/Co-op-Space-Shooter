@@ -7,3 +7,5 @@ extends Control
 @onready var health = $health:
 	set(value):
 		health.text = "Health: " + str(value)
+
+

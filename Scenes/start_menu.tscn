@@ -1,0 +1,110 @@
+[gd_scene load_steps=9 format=3 uid="uid://shejucr1esu0"]
+
+[ext_resource type="Script" path="res://Scripts/start_menu.gd" id="1_0rf42"]
+[ext_resource type="Script" path="res://Scenes/BG.gd" id="2_8ra3o"]
+[ext_resource type="Texture2D" uid="uid://drjieru8vtcpb" path="res://assets/black_bg.png" id="3_gsm1y"]
+[ext_resource type="Texture2D" uid="uid://blldxbmcfepxi" path="res://assets/background_1.png" id="4_21pl2"]
+[ext_resource type="FontFile" uid="uid://ddrmmqb2f6ado" path="res://assets/Fonts/Kenney Rocket.ttf" id="5_jyf8c"]
+[ext_resource type="LabelSettings" uid="uid://dxtm8hhcc82rv" path="res://resources/font.tres" id="6_hpdsk"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gbj5m"]
+bg_color = Color(0.117647, 0.133333, 0.188235, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nfjk0"]
+bg_color = Color(0.117647, 0.133333, 0.188235, 1)
+
+[node name="Start Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_0rf42")
+
+[node name="BG" type="ParallaxBackground" parent="."]
+script = ExtResource("2_8ra3o")
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="BG"]
+motion_scale = Vector2(2, 2)
+motion_mirroring = Vector2(0, 640)
+
+[node name="Sprite2D2" type="Sprite2D" parent="BG/ParallaxLayer"]
+texture = ExtResource("3_gsm1y")
+centered = false
+
+[node name="Sprite2D" type="Sprite2D" parent="BG/ParallaxLayer"]
+scale = Vector2(5.5, 5.5)
+texture = ExtResource("4_21pl2")
+centered = false
+
+[node name="Play" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -482.0
+offset_top = -17.0
+offset_right = -127.0
+offset_bottom = 68.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("5_jyf8c")
+theme_override_font_sizes/font_size = 42
+theme_override_styles/normal = SubResource("StyleBoxFlat_gbj5m")
+text = "Play"
+
+[node name="Quit" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 116.0
+offset_top = -17.0
+offset_right = 471.0
+offset_bottom = 68.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("5_jyf8c")
+theme_override_font_sizes/font_size = 42
+theme_override_styles/normal = SubResource("StyleBoxFlat_nfjk0")
+text = "Quit
+"
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -498.0
+offset_top = -213.0
+offset_right = 498.0
+offset_bottom = -72.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("5_jyf8c")
+theme_override_font_sizes/font_size = 32
+text = "How to play :
+Left: Use A and D to move, space to shoot
+Right: USE arrows to move, numpad 0 to shoot"
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="."]
+layout_mode = 1
+offset_right = 465.0
+offset_bottom = 141.0
+scale = Vector2(3, 3)
+theme_override_font_sizes/font_size = 32
+text = "SPACE SHOOTER"
+label_settings = ExtResource("6_hpdsk")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="pressed" from="Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="Quit" to="." method="_on_quit_pressed"]
