@@ -1,6 +1,7 @@
-[gd_scene load_steps=10 format=3 uid="uid://b8wgtjmqw34o0"]
+[gd_scene load_steps=11 format=3 uid="uid://b8wgtjmqw34o0"]
 
 [ext_resource type="Script" path="res://Test.gd" id="1_uj5ci"]
+[ext_resource type="PackedScene" uid="uid://cgw367utsoohc" path="res://Scenes/game_over_screen.tscn" id="2_ctprx"]
 [ext_resource type="PackedScene" uid="uid://cj6fvxnysokty" path="res://Scenes/new_hud_2.tscn" id="2_vqvnl"]
 [ext_resource type="PackedScene" uid="uid://b26wmef2nh18c" path="res://Scenes/new_hud.tscn" id="3_q52a6"]
 [ext_resource type="PackedScene" uid="uid://c7h6ofo5ufbln" path="res://Scenes/player_1.tscn" id="4_yf7b5"]
@@ -55,7 +56,7 @@ position = Vector2(791, -125)
 position = Vector2(941, -125)
 
 [node name="Enemy_despawn" type="Area2D" parent="."]
-position = Vector2(706, 729)
+position = Vector2(705, 793)
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy_despawn"]
@@ -76,6 +77,11 @@ centered = false
 scale = Vector2(5.5, 5.5)
 texture = ExtResource("6_xykrv")
 centered = false
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="GameOverScreen" parent="CanvasLayer" instance=ExtResource("2_ctprx")]
+visible = false
 
 [connection signal="change_health" from="Player_1" to="." method="_on_player_1_change_health"]
 [connection signal="change_health" from="player_2" to="." method="_on_player_2_change_health"]

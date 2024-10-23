@@ -18,12 +18,16 @@ func _on_area_shape_entered(area_rid, area, area_shape_index, local_shape_index)
 	if area.is_in_group("Enemy"):
 		if ( parent == 1 || parent ==2):
 			area.kill()
-			#queue_free()
+			if parent == 1:
+				get_parent().p1_score +=1
+			elif parent == 2:
+				get_parent().p2_score +=1
+			queue_free()
 	elif area.is_in_group("Player"):
 		if parent == 3:
 			area.get_parent().hurt(3)
-			print("alo")
-			#queue_free()
+			#print("alo")
+			queue_free()
 
 
 
